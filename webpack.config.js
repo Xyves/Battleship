@@ -13,8 +13,8 @@ const stylesHandler = "style-loader";
 const config = {
   entry: "./src/js/index.js",
   output: {
-    path: path.resolve(__dirname, "dist"), // Fix the output path
-
+    path: path.resolve(__dirname, "dist"),
+    filename: "main.js",
     publicPath: "/",
   },
   devServer: {
@@ -25,6 +25,7 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./dist/index.html",
+      inject: false,
     }),
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
@@ -36,8 +37,8 @@ const config = {
         loader: "babel-loader",
       },
       {
-        test: /\.s[ac]ss$/i,
-        use: [stylesHandler, "css-loader", "sass-loader"],
+        test: /\.s?css$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
@@ -47,6 +48,7 @@ const config = {
       // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
+
   mode: isProduction ? "production" : "development",
 };
 
