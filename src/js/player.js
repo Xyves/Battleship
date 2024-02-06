@@ -2,7 +2,7 @@ export default class Player {
   constructor(ship) {
     this.ships = ship;
   }
-  hit(location_x, location_y) {
+  hit(coordinates) {
     // Async func wait for user click on gameboard
   }
 }
