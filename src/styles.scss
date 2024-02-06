@@ -65,40 +65,21 @@ main {
   height: 100%;
   flex: 1;
 }
-.gameboard {
-  background-color: #e0e1dd;
-  width: 600px;
-  height: 600px;
-  margin: 0 5rem;
-  border: 1px solid #78290f;
-}
-.x-axis {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  margin: 0 5rem;
-  width: 600px;
-  background-color: red;
-  height: 20px;
-  text-align: center;
-
-  span {
-    display: inline-block;
-    margin-left: 1px;
-    height: 30px;
+section {
+  #gameBoard1 {
+    margin-right: 5rem;
   }
 }
-.y-axis {
-  text-align: center;
-  display: grid;
-  float: left;
-  grid-template-rows: repeat(10, 1fr);
-  margin: 0 3.8rem;
-  height: 600px;
-  background-color: red;
-  width: 20px;
-  span {
-    display: inline-block;
-    margin-left: 2px;
-    border: 1px solid black;
+.gameboard {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f5eded;
+  width: 500px;
+  height: 500px;
+  border: 1px solid #78290f;
+  .cell {
+    border: 1px solid #3d3b40;
+    width: 10%;
+    height: 10%;
   }
 }
