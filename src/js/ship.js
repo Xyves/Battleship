@@ -4,7 +4,7 @@ export default class Ship {
     this.length = length;
     this.hits = hits;
     this.sunk = sunk;
-    this.coordinates = coordinates;
+    this.coordinates = [...Array(length).keys()].map((i) => coordinates + i);
   }
   hit() {
     this.hits++;

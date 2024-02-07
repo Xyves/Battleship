@@ -8,7 +8,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const isProduction = process.env.NODE_ENV === "production";
-const stylesHandler = "style-loader";
 
 const config = {
   entry: "./src/js/index.js",
@@ -24,9 +23,11 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./dist/index.html",
+      template: "./src/index.html",
       inject: false,
+      watch: false,
     }),
+
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
@@ -50,6 +51,9 @@ const config = {
   },
 
   mode: isProduction ? "production" : "development",
+  watchOptions: {
+    ignored: /node_modules/, // Ignore watching node_modules for changes
+  },
 };
 
 export default config;
