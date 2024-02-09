@@ -1,40 +1,85 @@
-import { generateLocation } from "./logic";
-import { calculateIndex } from "./logic";
+import { generateLocation } from "./logic.js";
+// const boardDivs = document.querySelectorAll(".cell");
 export default class GameBoard {
   constructor() {
-    this.Board = [];
-    for (let i = 0; i < 10; i++) {
-      for (let j = 0; j < 10; j++) {
-        this.Board.push({ row: i, col: j });
-      }
-    }
+    this.board = [];
+    this.missedShot = [];
   }
-  receiveAttack(x = null, y = null) {
-    if (x == null || y === null) {
+  receiveAttack(localization = null) {
+    if ((localization = null)) {
       // throw console.error();
-      console.log("w");
+      console.log("error");
     } else {
-      let index = calculateIndex(x, y);
-      if (this.Board[index].length != 0) {
+      let index = checkClickedDiv();
+      let shipAttacked = this.board.filter((item) => {
+        return item.coordinates === index;
+      });
+      if (shipAttacked) {
+        // Hit
+        shipAttacked.hit();
+        let isSunk = shipAttacked.isSunk();
+        if (isSunk) {
+          let gameResult = isGameOver();
+          if (gameResult === true) {
+            // delete Event listener from divs, clear the whole board, display modal displaying the winner
+            // Run command for ending the game
+          } else {
+            // continue the game
+          }
+        } else {
+          return;
+        }
+      } else {
+        // Miss
+        this.missedShot.push(localization);
+      }
+      if (this.board[localization].length != 0) {
       }
     }
-    // if x,y == location of ship run hit / check which Player was hit
-    // else != keep track of missed attack
   }
   isGameOver() {
-    // if all ships of player1 or 2 are sunk, lock the gameboard display winner
+    return this.board.every((ship) => ship.isSunk);
   }
-  placeShips(ship, location = null) {
+  async placeShips(ship, location = null) {
     if (location == null) {
-      let x = generateLocation();
-      let y = generateLocation();
-      let shipLocation = calculateIndex(x, y);
-      createShips();
-      createShip(board);
-      // div[shipLocation].style.backgroundColor = "red";
+      let shipLocation = generateLocation();
+      let shipLength = ship.length;
+      console.log(shipLocation + "LOC");
+
+      if (exceedsBoardEdge(shipLocation, shipLength)) {
+        this.placeShips(ship, location);
+      } else {
+        ship.coordinates.push(shipLocation);
+        for (let i = 1; i < shipLength; i++) {
+          ship.coordinates.push(shipLocation + 1);
+          let shipLocation = shipLocation + 1;
+        }
+        this.board.push(ship);
+        const enemyBoard = document.querySelector("#gameBoard1");
+        const cells = enemyBoard.querySelectorAll(".cell");
+        const shipCoordinates = ship.coordinates;
+        shipCoordinates.forEach((index) => {
+          if (index >= 0 && index < cells.length) {
+            cells[index].style.backgroundColor = "blue";
+            console.log("cells!:" + cells);
+          }
+        });
+      }
+
+      // cell[shipLocation].style.backgroundColor = "red";
     } else {
+      await getPlayerLocation();
+      ship.location = this.location;
+      this.board.push(ship);
       // player == Player1
     }
     // if(player==player1){LEFT BOARD ship.place(x,y)} else{RIGHT BOARD ship.place}
   }
+}
+function exceedsBoardEdge(location, length) {
+  const boardEdge = [9, 18, 27, 36, 45, 54, 63, 72, 81, 90, 99];
+
+  return boardEdge.some(
+    (edge) => edge <= location && location + length - 1 <= edge
+  );
 }
