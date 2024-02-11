@@ -88,4 +88,17 @@ section #gameBoard1 {
   height: 10%;
 }
 
+footer {
+  font-size: 1.3rem;
+  background-color: #0d1b2a;
+  padding: 20px;
+  text-align: center;
+  color: rgb(194, 194, 194);
+  vertical-align: center;
+}
+footer a {
+  text-decoration: none;
+  color: rgb(143, 100, 100);
+}
+
 /*# sourceMappingURL=styles.css.map */
