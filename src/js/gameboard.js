@@ -1,5 +1,8 @@
-import { generateLocation } from "./logic.js";
-// const boardDivs = document.querySelectorAll(".cell");
+import {
+  generateLocation,
+  checkDuplicates,
+  exceedsBoardEdge,
+} from "./logic.js";
 export default class GameBoard {
   constructor() {
     this.board = [];
@@ -15,7 +18,6 @@ export default class GameBoard {
         return item.coordinates === index;
       });
       if (shipAttacked) {
-        // Hit
         shipAttacked.hit();
         let isSunk = shipAttacked.isSunk();
         if (isSunk) {
@@ -42,31 +44,24 @@ export default class GameBoard {
   }
   async placeShips(ship, location = null) {
     if (location == null) {
-      let shipLocation = generateLocation();
-      let shipLength = ship.length;
-      console.log(shipLocation + "LOC");
-
-      if (exceedsBoardEdge(shipLocation, shipLength)) {
-        this.placeShips(ship, location);
-      } else {
-        ship.coordinates.push(shipLocation);
-        for (let i = 1; i < shipLength; i++) {
-          ship.coordinates.push(shipLocation + 1);
-          let shipLocation = shipLocation + 1;
-        }
-        this.board.push(ship);
-        const enemyBoard = document.querySelector("#gameBoard1");
-        const cells = enemyBoard.querySelectorAll(".cell");
-        const shipCoordinates = ship.coordinates;
-        shipCoordinates.forEach((index) => {
-          if (index >= 0 && index < cells.length) {
-            cells[index].style.backgroundColor = "blue";
-            console.log("cells!:" + cells);
+      let isValidPlacement = false;
+      while (!isValidPlacement) {
+        let shipLength = ship.length;
+        let shipLocation = generateLocation();
+        if (
+          exceedsBoardEdge(shipLocation, shipLength) ||
+          checkDuplicates(this.board, shipLocation)
+        ) {
+          console.log("Board exceeded" + shipLocation);
+        } else {
+          isValidPlacement = true;
+          ship.coordinates.push(shipLocation);
+          for (let i = 1; i < shipLength; i++) {
+            ship.coordinates.push(ship.coordinates[0] + i);
           }
-        });
+          this.board.push(ship);
+        }
       }
-
-      // cell[shipLocation].style.backgroundColor = "red";
     } else {
       await getPlayerLocation();
       ship.location = this.location;
@@ -75,11 +70,4 @@ export default class GameBoard {
     }
     // if(player==player1){LEFT BOARD ship.place(x,y)} else{RIGHT BOARD ship.place}
   }
-}
-function exceedsBoardEdge(location, length) {
-  const boardEdge = [9, 18, 27, 36, 45, 54, 63, 72, 81, 90, 99];
-
-  return boardEdge.some(
-    (edge) => edge <= location && location + length - 1 <= edge
-  );
 }
