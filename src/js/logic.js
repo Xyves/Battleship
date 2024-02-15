@@ -22,28 +22,17 @@ function checkDuplicates(board, generatedLocations) {
   }
   return false;
 }
-function exceedsHorizontalBoardEdge(locations, length) {
+function exceedsHorizontalBoardEdge(array, length) {
   const boardEdge = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99];
-  for (location of locations) {
-    for (let i = location; i < location + length; i++) {
-      if (boardEdge.includes(i)) {
-        return true;
-      }
-    }
-  }
-
-  return false;
+  return array.some((value) => {
+    return boardEdge.includes(value);
+  });
 }
-function exceedsVerticalBoardEdge(locations, length) {
+function exceedsVerticalBoardEdge(array, length) {
   const boardEdge = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99];
-  for (location of locations) {
-    for (let i = location; i < location + length; i++) {
-      if (boardEdge.includes(i)) {
-        return true;
-      }
-    }
-  }
-  return false;
+  return array.some((value) => {
+    return value > 99 || boardEdge.includes(value);
+  });
 }
 
 export {
