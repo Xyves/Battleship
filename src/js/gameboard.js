@@ -1,7 +1,10 @@
 import {
   generateLocation,
   checkDuplicates,
-  exceedsBoardEdge,
+  exceedsHorizontalBoardEdge,
+  generateDirection,
+  exceedsVerticalBoardEdge,
+  addToArray,
 } from "./logic.js";
 export default class GameBoard {
   constructor() {
@@ -46,20 +49,48 @@ export default class GameBoard {
     if (location == null) {
       let isValidPlacement = false;
       while (!isValidPlacement) {
+        let direction = generateDirection();
         let shipLength = ship.length;
         let shipLocation = generateLocation();
-        if (
-          exceedsBoardEdge(shipLocation, shipLength) ||
-          checkDuplicates(this.board, shipLocation)
-        ) {
-          console.log("Board exceeded" + shipLocation);
-        } else {
-          isValidPlacement = true;
-          ship.coordinates.push(shipLocation);
-          for (let i = 1; i < shipLength; i++) {
-            ship.coordinates.push(ship.coordinates[0] + i);
-          }
-          this.board.push(ship);
+        let shipCoordinates = [shipLocation];
+
+        switch (direction) {
+          case "horizontal":
+            // Add coordinates horizontally
+            for (let i = 1; i < shipLength; i++) {
+              addToArray(shipCoordinates, 1, shipLength);
+            }
+            if (
+              exceedsHorizontalBoardEdge(shipCoordinates, shipLength) ||
+              checkDuplicates(this.board, shipCoordinates)
+            ) {
+              console.log("Board exceeded" + shipLocation);
+            } else {
+              isValidPlacement = true;
+              ship.coordinates.push(shipLocation);
+              for (let i = 1; i < shipLength; i++) {
+                ship.coordinates.push(ship.coordinates[0] + i);
+              }
+              this.board.push(ship);
+            }
+          case "vertical":
+            // Add coordinates vertically
+            for (let i = 1; i < shipLength; i++) {
+              addToArray(shipCoordinates, 10, shipLength);
+            }
+            if (
+              exceedsVerticalBoardEdge(shipCoordinates, shipLength) ||
+              checkDuplicates(this.board, shipCoordinates)
+            ) {
+              console.log("Board exceeded" + shipLocation);
+            } else {
+              isValidPlacement = true;
+              ship.coordinates.push(shipLocation);
+              for (let i = 1; i < shipLength; i++) {
+                ship.coordinates.push(shipLocation + i * 10);
+              }
+              this.board.push(ship);
+            }
         }
       }
     } else {
