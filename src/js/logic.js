@@ -34,11 +34,15 @@ function exceedsVerticalBoardEdge(array, length) {
     return value > 99 || boardEdge.includes(value);
   });
 }
-
+function addToArray(array, increment, length) {
+  const lastElement = array[array.length - 1];
+  array.push(lastElement + increment);
+}
 export {
   generateLocation,
   checkDuplicates,
   exceedsHorizontalBoardEdge,
   exceedsVerticalBoardEdge,
   generateDirection,
+  addToArray,
 };
