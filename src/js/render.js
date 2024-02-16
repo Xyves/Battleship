@@ -28,7 +28,7 @@ function styleBoard(ship, boardId) {
   const shipCoordinates = ship.coordinates;
   shipCoordinates.forEach((index) => {
     if (index >= 0 && index < cells.length) {
-      cells[index].style.backgroundColor = "blue";
+      cells[index].style.backgroundColor = "rgb(26, 84, 84)";
     }
   });
 }
