@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap");
 /*=================================
-          Reset CSS
+            Reset CSS
 =================================*/
 html {
   box-sizing: border-box;
@@ -41,11 +41,23 @@ img {
 html,
 body {
   height: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+}
+
+/*=================================
+            Content
+=================================*/
+:root {
+  --grid-cell-size: 3rem;
 }
 
 body {
   display: flex;
   flex-direction: column;
+  max-width: 100%;
 }
 
 header {
@@ -66,7 +78,6 @@ main {
   justify-content: center;
   align-items: center;
   background-color: #15616d;
-  height: 100%;
   flex: 1;
 }
 
@@ -75,23 +86,22 @@ section #gameBoard1 {
 }
 
 .gameboard {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(10, minmax(var(--grid-cell-size), 1fr));
+  grid-template-rows: repeat(10, minmax(var(--grid-cell-size), 1fr));
   background-color: #f5eded;
-  width: 500px;
-  height: 500px;
   border: 1px solid #78290f;
+  border-radius: 10px;
+  flex-shrink: 1;
 }
 .gameboard .cell {
   border: 1px solid #3d3b40;
-  width: 10%;
-  height: 10%;
 }
 
 footer {
   font-size: 1.3rem;
   background-color: #0d1b2a;
-  padding: 20px;
+  padding: 1.2rem;
   text-align: center;
   color: rgb(194, 194, 194);
   vertical-align: center;
@@ -99,6 +109,36 @@ footer {
 footer a {
   text-decoration: none;
   color: rgb(143, 100, 100);
+}
+
+/*=================================
+            Media queries
+=================================*/
+@media (max-width: 500px) {
+  header {
+    font-size: 1.3rem;
+    padding: 10px;
+  }
+  :root {
+    --grid-cell-size: 0.5rem;
+  }
+  main {
+    flex-direction: column;
+  }
+}
+@media (max-width: 800px) {
+  main {
+    flex-direction: column;
+  }
+  section #gameBoard1 {
+    margin-right: 0rem;
+    margin-bottom: 2rem;
+  }
+}
+@media (max-width: 1100px) {
+  :root {
+    --grid-cell-size: 2rem;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */
