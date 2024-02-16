@@ -52,14 +52,17 @@ body {
 
 :root {
   --grid-cell-size: 3rem;
+  --main-bg-color: rgb(26, 84, 84);
+  --main-border-color: rgb(32, 102, 102);
 }
 body {
   display: flex;
   flex-direction: column;
   max-width: 100%;
+  background-color: #141616;
 }
 header {
-  background-color: #0d1b2a;
+  background-color: inherit;
   font-size: 2rem;
   vertical-align: center;
   padding: 20px;
@@ -75,7 +78,6 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #15616d;
   flex: 1;
 }
 section {
@@ -87,19 +89,10 @@ section {
   display: grid;
   grid-template-columns: repeat(10, minmax(var(--grid-cell-size), 1fr));
   grid-template-rows: repeat(10, minmax(var(--grid-cell-size), 1fr));
-  // grid
-  // display: flex;
-  // flex-wrap: wrap;
-  background-color: #f5eded;
-  // max-width: 30rem;
-  // max-height: 30rem;
-  // min-width: 15rem;
-  // min-height: 15rem;
-  border: 1px solid #78290f;
   border-radius: 10px;
   flex-shrink: 1;
   .cell {
-    border: 1px solid #3d3b40;
+    border: 1px solid var(--main-border-color);
   }
 }
 footer {
