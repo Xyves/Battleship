@@ -4,7 +4,7 @@
 =================================*/
 html {
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 17px;
 }
 
 *,
@@ -54,6 +54,7 @@ body {
   --grid-cell-size: 3rem;
   --main-bg-color: rgb(26, 84, 84);
   --main-border-color: rgb(32, 102, 102);
+  --main-background-color: #141616;
 }
 
 body {
@@ -61,6 +62,7 @@ body {
   flex-direction: column;
   max-width: 100%;
   background-color: #141616;
+  font-family: "Protest Guerrilla", sans-serif;
 }
 
 header {
@@ -68,12 +70,23 @@ header {
   font-size: 2rem;
   vertical-align: center;
   padding: 20px;
+  user-select: none;
 }
 header h1 {
-  font-family: "Protest Guerrilla", sans-serif;
   color: white;
   text-align: center;
   text-decoration: underline;
+}
+
+#reset-btn {
+  font-size: 1.2rem;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  background-color: #206666;
+  color: white;
+  text-transform: uppercase;
 }
 
 main {
@@ -81,10 +94,14 @@ main {
   justify-content: center;
   align-items: center;
   flex: 1;
+  gap: 8rem;
 }
 
-section #gameBoard1 {
-  margin-right: 5rem;
+section .battlefield-label {
+  margin-top: 1rem;
+  color: white;
+  text-align: center;
+  user-select: none;
 }
 
 .gameboard {
@@ -98,6 +115,22 @@ section #gameBoard1 {
   border: 1px solid var(--main-border-color);
 }
 
+dialog {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  background-color: var(--main-bg-color);
+  padding: 1.5rem 2.5rem;
+  border: 1px solid white;
+}
+dialog button {
+  background-color: #328f7f;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  color: white;
+  user-select: none;
+  font-size: 2rem;
+}
 footer {
   font-size: 1.3rem;
   background-color: #0d1b2a;
@@ -105,6 +138,7 @@ footer {
   text-align: center;
   color: rgb(194, 194, 194);
   vertical-align: center;
+  margin-top: 2rem;
 }
 footer a {
   text-decoration: none;
@@ -115,27 +149,37 @@ footer a {
             Media queries
 =================================*/
 @media (max-width: 500px) {
+  html {
+    font-size: 12px;
+  }
   header {
     font-size: 1.3rem;
     padding: 10px;
   }
   :root {
-    --grid-cell-size: 0.5rem;
+    --grid-cell-size: 0.4rem;
   }
   main {
     flex-direction: column;
   }
 }
 @media (max-width: 800px) {
+  html {
+    font-size: 14px;
+  }
   main {
     flex-direction: column;
+    gap: 1rem;
   }
   section #gameBoard1 {
     margin-right: 0rem;
     margin-bottom: 2rem;
   }
 }
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
+  html {
+    font-size: 16px;
+  }
   :root {
     --grid-cell-size: 2rem;
   }
