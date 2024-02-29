@@ -12,16 +12,17 @@ export default class GameBoard {
     this.missedShot = [];
   }
   receiveAttack(localization = null) {
-    if ((localization = null)) {
+    if (localization === null) {
       // throw console.error();
       console.log("error");
     } else {
-      let index = checkClickedDiv();
-      let shipAttacked = this.board.filter((item) => {
-        return item.coordinates === index;
-      });
+      const shipAttacked = this.board.find((ship) =>
+        ship.coordinates.includes(localization)
+      );
       if (shipAttacked) {
         shipAttacked.hit();
+        console.log("Ship hit!");
+
         let isSunk = shipAttacked.isSunk();
         if (isSunk) {
           let gameResult = isGameOver();
@@ -32,18 +33,18 @@ export default class GameBoard {
             // continue the game
           }
         } else {
+          // Missed shot
+
+          this.board.missedShot.push(localization);
           return;
         }
-      } else {
-        // Miss
-        this.missedShot.push(localization);
       }
       if (this.board[localization].length != 0) {
       }
     }
   }
   isGameOver() {
-    return this.board.every((ship) => ship.isSunk);
+    return this.board.every((ship) => ship.isSunk());
   }
   async placeShips(ship, location = null) {
     if (location == null) {
