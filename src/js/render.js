@@ -8,17 +8,15 @@ export default function createDOM() {
       gameboard.appendChild(div);
     }
   });
-  const enemyBoard = document.querySelector("#gameBoard2");
-  const divs = enemyBoard.querySelectorAll("div");
-  function checkClickedDiv() {
-    divs.forEach((div) => {
-      div.addEventListener("click", () => {
-        console.log(div.getAttribute("data-id"));
-        return div.getAttribute("data-id");
-      });
-    });
-  }
-  checkClickedDiv();
+  enemyBoard.addEventListener("click", handleDivClick);
+}
+
+const enemyBoard = document.querySelector("#gameBoard2");
+async function handleDivClick(event) {
+  const clickedDiv = event.target;
+  const dataId = clickedDiv.getAttribute("data-id");
+  console.log("Clicked div's data-id:", dataId);
+  await move(dataId);
 }
 
 function styleBoard(ship, boardId) {
@@ -32,4 +30,4 @@ function styleBoard(ship, boardId) {
     }
   });
 }
-export { styleBoard };
+export { styleBoard, handleDivClick };
