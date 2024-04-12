@@ -76,6 +76,7 @@ header {
   }
 }
 #reset-btn {
+  font-family: "Protest Guerrilla", sans-serif;
   font-size: 1.2rem;
   margin: 0 auto;
   padding: 1rem 2rem;
@@ -84,6 +85,7 @@ header {
   background-color: #206666;
   color: white;
   text-transform: uppercase;
+  box-shadow: rgb(231, 235, 240) 0px 20px 30px -10px;
 }
 main {
   display: flex;
@@ -98,6 +100,8 @@ section {
     color: white;
     text-align: center;
     user-select: none;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
   }
 }
 .gameboard {
@@ -114,31 +118,36 @@ dialog {
   position: absolute;
   bottom: 0;
   top: 0;
-  background-color: var(--main-bg-color);
-  padding: 1.5rem 2.5rem;
   border: 1px solid white;
+  border-radius: 15px;
+  padding: 0;
+
   button {
-    background-color: #328f7f;
-    padding: 1rem 2rem;
-    border-radius: 5px;
+    font-family: "Protest Guerrilla", sans-serif;
+    letter-spacing: 3px;
+    background-color: #18473f;
+    padding: 2rem 5rem;
+    border-radius: 15px;
     color: white;
     user-select: none;
     font-size: 2rem;
+    box-shadow: rgb(44, 47, 49) 0px 20px 30px -10px;
   }
-  button:active {
+  button:hover {
+    background-color: #18473ff3;
   }
 }
 footer {
-  font-size: 1.3rem;
+  font-size: 2rem;
   background-color: #0d1b2a;
-  padding: 1.2rem;
+  padding: 2rem;
   text-align: center;
   color: rgb(194, 194, 194);
   vertical-align: center;
   margin-top: 2rem;
   a {
     text-decoration: none;
-    color: rgb(143, 100, 100);
+    color: rgb(63, 110, 199);
   }
 }
 
